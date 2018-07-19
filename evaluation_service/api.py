@@ -1,3 +1,13 @@
+#!/usr/bin/env python
+###############################################################################
+# Title: api.py
+# author: Kadyn Martinez
+###############################################################################
+# Service entry point for evaluating and processing images for lane breach.
+# Requires model ckpt for car detection and Yad2k present. 
+###############################################################################
+
+
 from flask import Flask, jsonify, request, Response
 import jsonpickle
 import numpy as np
@@ -22,6 +32,8 @@ def process_image_provided():
 @app.route('/api/v1/fetch', methods=['POST'])
 def process_image_fetch():
     payload = request.get_json()
+    img_s3 = payload["s3_image_url"]
+    # NEED TO USE BOTO, MUST WRAP
 
 def main():
     app.run(debug=True)

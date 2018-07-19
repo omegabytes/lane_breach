@@ -1,3 +1,12 @@
+#!/usr/bin/env python
+###############################################################################
+# Title: client_example.py
+# author: Kadyn Martinez
+###############################################################################
+# example client for calling evaluation_service api, 
+# pass a jpeg image path as argument.
+###############################################################################
+
 import requests
 import json
 import sys
