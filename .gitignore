@@ -61,7 +61,7 @@ typings/
 .next
 
 # Models
-.ckpt
+*.ckpt
 
 # Python compiled
-.pyc
+*.pyc
