@@ -6,7 +6,7 @@ import cv2
 app = Flask(__name__)
 
 @app.route('/api/v1/img', methods=['POST'])
-def process_image():
+def process_image_provided():
     image_data = np.fromstring(request.data, np.uint8)
     img = cv2.imdecode(image_data, cv2.IMREAD_COLOR)
 
@@ -18,6 +18,10 @@ def process_image():
     }
     response_pickled = jsonpickle.encode(response)
     return Response(response=response_pickled, status=200, mimetype="application/json")
+
+@app.route('/api/v1/fetch', methods=['POST'])
+def process_image_fetch():
+    payload = request.get_json()
 
 def main():
     app.run(debug=True)
