@@ -1,11 +1,10 @@
 const _       = require('lodash');
 const rp      = require('request-promise');
-const fs      = require('fs');
-const knox    = require('knox');
 const request = require('request');
+const knox    = require('knox');
 const AWS     = require('aws-sdk');
-const es      = require('event-stream');
 const http    = require('http');
+const config  = require('../config.js');
 
 // get a list of all bike reports
 // for each report that contains a url
@@ -16,25 +15,23 @@ const http    = require('http');
 // add record to list of updated records
 // update internal DB with updated records list
 
-// todo: implement IAM
+// store your creds in ~/.aws/credentials or load them from your config.js
 AWS.config.update({
-  accessKeyId    : "AKIAINJ4OND4747W2BFA",
-  secretAccessKey: "LGueYn45QCb2aCDHa0xRC0k68cJFK7sEO3L1E0Gc",
   region: "us-west-2"
 });
 
 let docClient = new AWS.DynamoDB.DocumentClient();
+
+// knox requires you explicitly pass creds
 let client   = knox.createClient({
-  key   : "AKIAINJ4OND4747W2BFA",
-  secret: "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",
+  key   : config.aws.key,
+  secret: config.aws.secret,
   bucket: "lane-breach"
 });
 
 
-
 // data sourced from sf.openData
 let url   = "https://data.sfgov.org/resource/ktji-gk7t.json";
-let token = 'erzdPUb9V8btdxnZd3KV7JeYK'; // token for 311, works on all datasets
 
 let total  = 3000000; // total number of rows in the dataset
 let offset = 0; // variable to handle SOAP pagination
@@ -45,7 +42,7 @@ let options = {
   method : "GET",
   headers: {
     'Content-Type': 'application/json',
-    'X-App-Token' : `${token}`
+    'X-App-Token' : config.open_data.token
   },
   qs     : {
     "$limit"         : total,
@@ -65,8 +62,11 @@ rp(options)
     reports.forEach((report) => {
       if(report.media_url) {
         if(report.media_url.includes('.jpg')) {
-          console.log(report.media_url)
-          http.get(report.media_url, function(res) {
+          console.log(report.media_url);
+
+          request
+              .get(report.media_url)
+              .on('response', function(res) {
             let headers = {
               'Content-Length': res.headers['content-length'],
               'Content-Type'  : res.headers['content-type']
@@ -82,9 +82,7 @@ rp(options)
                 console.log('saved to %s', req.url);
                 report.s3_media_url = `https://s3-us-west-1.amazonaws.com/lane-breach/311-sf/images/${report.service_request_id}.png`;
                 report.image_parsed = false;
-                
-                
-                
+
                 let dbopts = {
                   Item: report,
                   TableName: "BikeLaneReports"
