@@ -68,3 +68,5 @@ typings/
 
 # intellij garbage
 .idea
+
+./config.js
