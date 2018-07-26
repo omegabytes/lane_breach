@@ -1,13 +1,13 @@
 let AWS = require("aws-sdk");
 
 AWS.config.update({
-  accessKeyId    : "AKIAINJ4OND4747W2BFA",
-  secretAccessKey: "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",
   region: "us-west-2"
 });
 
 let docClient = new AWS.DynamoDB.DocumentClient();
 
+
+// todo: generify
 let params = {
   Item: {
     address                        : '2500 MASON ST, SAN FRANCISCO, CA, 94133',
