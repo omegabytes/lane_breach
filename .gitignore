@@ -65,3 +65,8 @@ typings/
 
 # Python compiled
 *.pyc
+
+# intellij garbage
+.idea
+
+config.js
