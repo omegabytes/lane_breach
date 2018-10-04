@@ -1,0 +1,484 @@
+{
+  "service": {
+    "service": "bikeLaneBot",
+    "serviceObject": {
+      "name": "bikeLaneBot"
+    },
+    "provider": {
+      "stage": "dev",
+      "region": "us-east-1",
+      "variableSyntax": "\\${([ ~:a-zA-Z0-9._'\",\\-\\/\\(\\)]+?)}",
+      "name": "aws",
+      "runtime": "nodejs8.10",
+      "versionFunctions": true,
+      "remoteFunctionData": null,
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ServerlessDeploymentBucket": {
+            "Type": "AWS::S3::Bucket"
+          },
+          "DataUnderscoreserviceLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/bikeLaneBot-dev-data_service"
+            }
+          },
+          "TwitterUnderscorebotLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/bikeLaneBot-dev-twitter_bot"
+            }
+          },
+          "IamRoleLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": [
+                      "sts:AssumeRole"
+                    ]
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "dev",
+                        "bikeLaneBot",
+                        "lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogStream"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/bikeLaneBot-dev-data_service:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/bikeLaneBot-dev-twitter_bot:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:PutLogEvents"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/bikeLaneBot-dev-data_service:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/bikeLaneBot-dev-twitter_bot:*:*"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "Path": "/",
+              "RoleName": {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "bikeLaneBot",
+                    "dev",
+                    "us-west-2",
+                    "lambdaRole"
+                  ]
+                ]
+              }
+            }
+          },
+          "DataUnderscoreserviceLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/bikeLaneBot/dev/1538629511755-2018-10-04T05:05:11.755Z/bikeLaneBot.zip"
+              },
+              "FunctionName": "bikeLaneBot-dev-data_service",
+              "Handler": "data_service.main",
+              "MemorySize": 1024,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              },
+              "Runtime": "nodejs8.10",
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "open_data_token": "erzdPUb9V8btdxnZd3KV7JeYK",
+                  "twitter_url": "https://vozzr69twh.execute-api.us-east-1.amazonaws.com/dev/tweet"
+                }
+              }
+            },
+            "DependsOn": [
+              "DataUnderscoreserviceLogGroup",
+              "IamRoleLambdaExecution"
+            ]
+          },
+          "DataUnderscoreserviceLambdaVersionC5MSaHd4WDN3JFggOrqixo54hSwRUQeh9S75o3sjw": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "DataUnderscoreserviceLambdaFunction"
+              },
+              "CodeSha256": "25pe6V1dctG5KcaeqSXmLXDRt2ZgQbbq64B97F3HGsk="
+            }
+          },
+          "TwitterUnderscorebotLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/bikeLaneBot/dev/1538629511755-2018-10-04T05:05:11.755Z/bikeLaneBot.zip"
+              },
+              "FunctionName": "bikeLaneBot-dev-twitter_bot",
+              "Handler": "twitter_controller.main",
+              "MemorySize": 1024,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              },
+              "Runtime": "nodejs8.10",
+              "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "access_token_key": "1046942385169551360-gVOoUR5jG2WipPmv1IPglX8p0iH96O",
+                  "access_token_secret": "Q0f1o5tLvnIoO5H9aTDA29PdSEM0mDXvbvJchO5uYs3L7",
+                  "consumer_key": "ACF8aog7Owkzi3xGVaUgmEQ3C",
+                  "consumer_secret": "Nfv5abnd3yFEc7EIlAyjM9v6lfQEqTlpPQZFouClvrf5xF0swS"
+                }
+              }
+            },
+            "DependsOn": [
+              "TwitterUnderscorebotLogGroup",
+              "IamRoleLambdaExecution"
+            ]
+          },
+          "TwitterUnderscorebotLambdaVersionkhSgTwAB5qsg9QtuGqONG5pzJlV2BSuJieFInFFOAs": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "TwitterUnderscorebotLambdaFunction"
+              },
+              "CodeSha256": "25pe6V1dctG5KcaeqSXmLXDRt2ZgQbbq64B97F3HGsk="
+            }
+          },
+          "DataUnderscoreserviceEventsRuleSchedule1": {
+            "Type": "AWS::Events::Rule",
+            "Properties": {
+              "ScheduleExpression": "rate(7 days)",
+              "State": "ENABLED",
+              "Targets": [
+                {
+                  "Arn": {
+                    "Fn::GetAtt": [
+                      "DataUnderscoreserviceLambdaFunction",
+                      "Arn"
+                    ]
+                  },
+                  "Id": "data_serviceSchedule"
+                }
+              ]
+            }
+          },
+          "DataUnderscoreserviceLambdaPermissionEventsRuleSchedule1": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "DataUnderscoreserviceLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "events.",
+                    {
+                      "Ref": "AWS::URLSuffix"
+                    }
+                  ]
+                ]
+              },
+              "SourceArn": {
+                "Fn::GetAtt": [
+                  "DataUnderscoreserviceEventsRuleSchedule1",
+                  "Arn"
+                ]
+              }
+            }
+          },
+          "ApiGatewayRestApi": {
+            "Type": "AWS::ApiGateway::RestApi",
+            "Properties": {
+              "Name": "dev-bikeLaneBot",
+              "EndpointConfiguration": {
+                "Types": [
+                  "EDGE"
+                ]
+              }
+            }
+          },
+          "ApiGatewayResourceTweet": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Fn::GetAtt": [
+                  "ApiGatewayRestApi",
+                  "RootResourceId"
+                ]
+              },
+              "PathPart": "tweet",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayMethodTweetPost": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "POST",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceTweet"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "TwitterUnderscorebotLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            }
+          },
+          "ApiGatewayDeployment1538629511973": {
+            "Type": "AWS::ApiGateway::Deployment",
+            "Properties": {
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "StageName": "dev"
+            },
+            "DependsOn": [
+              "ApiGatewayMethodTweetPost"
+            ]
+          },
+          "TwitterUnderscorebotLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "TwitterUnderscorebotLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "apigateway.",
+                    {
+                      "Ref": "AWS::URLSuffix"
+                    }
+                  ]
+                ]
+              },
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": {
+              "Ref": "ServerlessDeploymentBucket"
+            }
+          },
+          "DataUnderscoreserviceLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "DataUnderscoreserviceLambdaVersionC5MSaHd4WDN3JFggOrqixo54hSwRUQeh9S75o3sjw"
+            }
+          },
+          "TwitterUnderscorebotLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "TwitterUnderscorebotLambdaVersionkhSgTwAB5qsg9QtuGqONG5pzJlV2BSuJieFInFFOAs"
+            }
+          },
+          "ServiceEndpoint": {
+            "Description": "URL of the service endpoint",
+            "Value": {
+              "Fn::Join": [
+                "",
+                [
+                  "https://",
+                  {
+                    "Ref": "ApiGatewayRestApi"
+                  },
+                  ".execute-api.us-west-2.",
+                  {
+                    "Ref": "AWS::URLSuffix"
+                  },
+                  "/dev"
+                ]
+              ]
+            }
+          }
+        }
+      },
+      "coreCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ServerlessDeploymentBucket": {
+            "Type": "AWS::S3::Bucket"
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": {
+              "Ref": "ServerlessDeploymentBucket"
+            }
+          }
+        }
+      },
+      "vpc": {}
+    },
+    "pluginsData": {},
+    "functions": {
+      "data_service": {
+        "handler": "data_service.main",
+        "events": [
+          {
+            "schedule": "rate(7 days)"
+          }
+        ],
+        "environment": {
+          "open_data_token": "erzdPUb9V8btdxnZd3KV7JeYK",
+          "twitter_url": "https://vozzr69twh.execute-api.us-east-1.amazonaws.com/dev/tweet"
+        },
+        "name": "bikeLaneBot-dev-data_service",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "nodejs8.10",
+        "vpc": {}
+      },
+      "twitter_bot": {
+        "handler": "twitter_controller.main",
+        "environment": {
+          "access_token_key": "1046942385169551360-gVOoUR5jG2WipPmv1IPglX8p0iH96O",
+          "access_token_secret": "Q0f1o5tLvnIoO5H9aTDA29PdSEM0mDXvbvJchO5uYs3L7",
+          "consumer_key": "ACF8aog7Owkzi3xGVaUgmEQ3C",
+          "consumer_secret": "Nfv5abnd3yFEc7EIlAyjM9v6lfQEqTlpPQZFouClvrf5xF0swS"
+        },
+        "events": [
+          {
+            "http": {
+              "path": "tweet",
+              "method": "post",
+              "integration": "AWS_PROXY"
+            }
+          }
+        ],
+        "name": "bikeLaneBot-dev-twitter_bot",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "nodejs8.10",
+        "vpc": {}
+      }
+    },
+    "artifact": "/Users/alex/Desktop/Programming/lane_breach/.serverless/bikeLaneBot.zip"
+  },
+  "package": {
+    "artifactDirectoryName": "serverless/bikeLaneBot/dev/1538629511755-2018-10-04T05:05:11.755Z",
+    "artifact": "bikeLaneBot.zip"
+  }
+}
