@@ -1,0 +1,15 @@
+module.exports = {
+    aws: {
+        key: "AKIAJ4I6ND4XHAVPC3AQ",
+        secret: "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"
+    },
+    open_data: {
+        token: "erzdPUb9V8btdxnZd3KV7JeYK"
+    },
+    twitter: {
+        access_token_key: '1046942385169551360-gVOoUR5jG2WipPmv1IPglX8p0iH96O',
+        access_token_secret: 'Q0f1o5tLvnIoO5H9aTDA29PdSEM0mDXvbvJchO5uYs3L7',
+        consumer_key: 'ACF8aog7Owkzi3xGVaUgmEQ3C',
+        consumer_secret: 'Nfv5abnd3yFEc7EIlAyjM9v6lfQEqTlpPQZFouClvrf5xF0swS'
+    }
+};

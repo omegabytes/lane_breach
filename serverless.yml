@@ -42,9 +42,9 @@ provider:
 #            - "/*"
 
 # you can define service wide environment variables here
-#  environment:
-#    variable1: value1
-
+environment:
+  aws_access_key: ${file(config.yml):aws.key
+  aws_secret_access_key: ${file(config.yml):aws.secret
 # you can add packaging information here
 #package:
 #  include:
@@ -55,16 +55,24 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
-
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
-#    events:
-#      - http:
-#          path: users/create
-#          method: get
+  data_service:
+    handler: data_service.main
+    events:
+    #      - schedule: cron(0 7 * * SAT *)
+    - schedule: rate(7 days)
+    environment:
+      open_data_token: ${file(config.yml):open_data.token
+  twitter_bot:
+    handler: twitter_controller.main
+    environment:
+      access_token_key: ${file(config.yml):twitter.access_token_key}
+      access_token_secret: ${file(config.yml):twitter.access_token_secret}
+      consumer_key: ${file(config.yml):twitter.consumer_key}
+      consumer_secret: ${file(config.yml):twitter.consumer_secret}
+    events:
+      - http:
+          path: tweet
+          method: post
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
 #      - sns: greeter-topic
