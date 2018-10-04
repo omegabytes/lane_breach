@@ -73,7 +73,7 @@ module.exports.main= function main (event, context, callback) {
 
             var tweetOptions = {
                 method: 'POST',
-                uri: process.env["twitterurl"],
+                uri: process.env["twitter_url"],
                 body: {
                     tweet: output
                 },

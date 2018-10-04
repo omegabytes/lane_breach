@@ -118,7 +118,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bikeLaneBot/dev/1538616944840-2018-10-04T01:35:44.840Z/bikeLaneBot.zip"
+                "S3Key": "serverless/bikeLaneBot/dev/1538629511755-2018-10-04T05:05:11.755Z/bikeLaneBot.zip"
               },
               "FunctionName": "bikeLaneBot-dev-data_service",
               "Handler": "data_service.main",
@@ -133,7 +133,8 @@
               "Timeout": 6,
               "Environment": {
                 "Variables": {
-                  "open_data_token": "${file(config.yml):open_data.token"
+                  "open_data_token": "erzdPUb9V8btdxnZd3KV7JeYK",
+                  "twitter_url": "https://vozzr69twh.execute-api.us-east-1.amazonaws.com/dev/tweet"
                 }
               }
             },
@@ -142,14 +143,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "DataUnderscoreserviceLambdaVersionGwOFfnujCfIWLxSUJiUTWYnYGc7Dg14unFnq6oIg": {
+          "DataUnderscoreserviceLambdaVersionC5MSaHd4WDN3JFggOrqixo54hSwRUQeh9S75o3sjw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DataUnderscoreserviceLambdaFunction"
               },
-              "CodeSha256": "JL+pJfPNVDecV4Dq+5fBde/euVXsHWKnsEfE1c44Nn4="
+              "CodeSha256": "25pe6V1dctG5KcaeqSXmLXDRt2ZgQbbq64B97F3HGsk="
             }
           },
           "TwitterUnderscorebotLambdaFunction": {
@@ -159,7 +160,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/bikeLaneBot/dev/1538616944840-2018-10-04T01:35:44.840Z/bikeLaneBot.zip"
+                "S3Key": "serverless/bikeLaneBot/dev/1538629511755-2018-10-04T05:05:11.755Z/bikeLaneBot.zip"
               },
               "FunctionName": "bikeLaneBot-dev-twitter_bot",
               "Handler": "twitter_controller.main",
@@ -186,14 +187,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "TwitterUnderscorebotLambdaVersionj0CgmYWIHe4rBBMzE4tQWP4QBqIcwBDxHA7JQKYU": {
+          "TwitterUnderscorebotLambdaVersionkhSgTwAB5qsg9QtuGqONG5pzJlV2BSuJieFInFFOAs": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "TwitterUnderscorebotLambdaFunction"
               },
-              "CodeSha256": "JL+pJfPNVDecV4Dq+5fBde/euVXsHWKnsEfE1c44Nn4="
+              "CodeSha256": "25pe6V1dctG5KcaeqSXmLXDRt2ZgQbbq64B97F3HGsk="
             }
           },
           "DataUnderscoreserviceEventsRuleSchedule1": {
@@ -312,7 +313,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1538616945115": {
+          "ApiGatewayDeployment1538629511973": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -381,13 +382,13 @@
           "DataUnderscoreserviceLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DataUnderscoreserviceLambdaVersionGwOFfnujCfIWLxSUJiUTWYnYGc7Dg14unFnq6oIg"
+              "Ref": "DataUnderscoreserviceLambdaVersionC5MSaHd4WDN3JFggOrqixo54hSwRUQeh9S75o3sjw"
             }
           },
           "TwitterUnderscorebotLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "TwitterUnderscorebotLambdaVersionj0CgmYWIHe4rBBMzE4tQWP4QBqIcwBDxHA7JQKYU"
+              "Ref": "TwitterUnderscorebotLambdaVersionkhSgTwAB5qsg9QtuGqONG5pzJlV2BSuJieFInFFOAs"
             }
           },
           "ServiceEndpoint": {
@@ -439,7 +440,8 @@
           }
         ],
         "environment": {
-          "open_data_token": "${file(config.yml):open_data.token"
+          "open_data_token": "erzdPUb9V8btdxnZd3KV7JeYK",
+          "twitter_url": "https://vozzr69twh.execute-api.us-east-1.amazonaws.com/dev/tweet"
         },
         "name": "bikeLaneBot-dev-data_service",
         "package": {},
@@ -476,7 +478,7 @@
     "artifact": "/Users/alex/Desktop/Programming/lane_breach/.serverless/bikeLaneBot.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/bikeLaneBot/dev/1538616944840-2018-10-04T01:35:44.840Z",
+    "artifactDirectoryName": "serverless/bikeLaneBot/dev/1538629511755-2018-10-04T05:05:11.755Z",
     "artifact": "bikeLaneBot.zip"
   }
 }

@@ -43,8 +43,8 @@ provider:
 
 # you can define service wide environment variables here
 environment:
-  aws_access_key: ${file(config.yml):aws.key
-  aws_secret_access_key: ${file(config.yml):aws.secret
+  aws_access_key: ${file(config.yml):aws.key}
+  aws_secret_access_key: ${file(config.yml):aws.secret}
 # you can add packaging information here
 #package:
 #  include:
@@ -61,7 +61,8 @@ functions:
     #      - schedule: cron(0 7 * * SAT *)
     - schedule: rate(7 days)
     environment:
-      open_data_token: ${file(config.yml):open_data.token
+      open_data_token: ${file(config.yml):open_data.token}
+      twitter_url: ${file(config.yml):endpoints.tweet}
   twitter_bot:
     handler: twitter_controller.main
     environment:
