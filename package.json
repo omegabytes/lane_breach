@@ -4,7 +4,11 @@
   "description": "",
   "main": "config_default.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:db": "docker build -t db ./db/",
+    "run:db": "docker run --name db db",
+    "seed:db": "docker exec -it db bash -c 'psql bikelanes bikelanes -f /data/bikeway_network.sql'",
+    "db": "docker exec -it db bash -c 'psql bikelanes bikelanes'"
   },
   "repository": {
     "type": "git",
