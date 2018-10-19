@@ -4,8 +4,6 @@ This is the public repository for all of the code associated with Lane Breach, a
 digital platform for bringing safety to the cyclists riding along the streets of
 San Francisco.
 
---------------------------------------------------------------------------------
-
 ## Our Mission
 
 We want to create an online platform that serves as the centerpoint for cyclist
