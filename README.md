@@ -26,3 +26,13 @@ user-facing applications:
 Both of these applications will be tied together by a back-end service that
 pulls data from various sources and combines them into a single PostgreSQL
 database hosted on AWS.
+
+## Contributing
+
+We welcome contributions! All of our contributors are expected to follow the
+rules outlined in our Code of Conduct. Please create a separate pull request
+against master for each new feature/bug-fix. We will try to use Github issues
+whenever possible to describe tasks that we need to do.
+
+Steps for building the various apps, and an overview of the design can be found
+on the wiki. We're excited to see your PRs!
