@@ -1,0 +1,24 @@
+version: '3'
+services:
+  lbdb:
+    container_name: lbdb
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    ports:
+      - '5432:5432'
+  lbapi:
+    container_name: lbapi
+    build:
+      context: ./lanebreach-api
+      dockerfile: Dockerfile    
+    image: lanebreach_api
+    environment:
+      RAILS_DATABASE_HOST: lbdb
+    volumes:
+      - ./lanebreach-api:/lanebreach-api
+    ports:
+      - '3000:3000'
+    depends_on:
+      - lbdb
+    command: bundle exec puma
