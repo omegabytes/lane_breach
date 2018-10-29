@@ -1,3 +1,10 @@
+## Deployment
+
+The app lives on Heroku at https://lane-breach.herokuapp.com/ which you must be logged into to deploy. Make sure to add the heroku remote using ```heroku git:remote -a lane-breach```.
+
+* You can push a new version of the app using ```git subtree push --prefix lanebreach-api heroku master```.
+* You can run migrations using ```heroku run rake db:migrate```.
+
 ## API
 
 ### Mobile metadata
@@ -6,7 +13,7 @@
 
 **request:** 
 ```
-curl -XGET http://localhost:3000/api/mobile_metadata
+curl -XGET https://lane-breach.herokuapp.com/api/mobile_metadata
 ```
 
 **response:**
@@ -18,7 +25,7 @@ curl -XGET http://localhost:3000/api/mobile_metadata
 
 **request:** 
 ```
-curl -XPOST http://localhost:3000/api/mobile_metadata -H "Content-Type: application/json" -d '{"mobile_metadatum":{"environment":"a", "category":"b", "token":"c", "request_id":"d"}}'
+curl -XPOST https://lane-breach.herokuapp.com/api/mobile_metadata -H "Content-Type: application/json" -d '{"mobile_metadatum":{"environment":"a", "category":"b", "token":"c", "request_id":"d"}}'
 ```
 
 **response:**
@@ -32,7 +39,7 @@ curl -XPOST http://localhost:3000/api/mobile_metadata -H "Content-Type: applicat
 
 **request:** 
 ```
-curl -XGET http://localhost:3000/api/bikeway_networks?lat=37.74675537&long=-122.4587284
+curl -XGET https://lane-breach.herokuapp.com/api/bikeway_networks?lat=37.74675537&long=-122.4587284
 ```
 
 **response:**
@@ -42,7 +49,7 @@ curl -XGET http://localhost:3000/api/bikeway_networks?lat=37.74675537&long=-122.
 
 **request:** 
 ```
-curl -XGET http://localhost:3000/api/bikeway_networks?lat=-122.4587284&long=37.74675537
+curl -XGET https://lane-breach.herokuapp.com/api/bikeway_networks?lat=-122.4587284&long=37.74675537
 ```
 
 **response:**
