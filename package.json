@@ -4,11 +4,15 @@
   "description": "",
   "main": "config_default.js",
   "scripts": {
+    "api": "docker exec -it lbapi bash",
+    "api:console": "docker exec -it lbapi bash -c 'rails console'",
     "build": "docker-compose -f docker-compose.yml build",
     "build:db": "docker build -t lbdb ./db/",
     "db": "docker exec -it lbdb bash -c 'psql bikelanes bikelanes'",
-    "run:db": "docker run --name lbdb lbdb",
-    "seed:db": "docker exec -it lbdb bash -c 'psql bikelanes bikelanes -f /data/bikeway_network.sql'",
+    "db:reset": "docker exec -it lbapi bash -c 'rails db:migrate:reset RAILS_ENV=development'",
+    "db:migrate": "docker exec -it lbapi bash -c 'rails db:migrate RAILS_ENV=development'",
+    "db:run": "docker run --name lbdb lbdb",
+    "db:seed": "docker exec -it lbdb bash -c 'psql bikelanes bikelanes -f /data/bikeway_networks.sql'",
     "start": "docker-compose -f docker-compose.yml up"
   },
   "repository": {
