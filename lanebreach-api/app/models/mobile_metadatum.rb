@@ -1,0 +1,2 @@
+class MobileMetadatum < ApplicationRecord
+end
