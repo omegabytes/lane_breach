@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Lane Breach</title>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+        integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'>
+  </script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css'
+        rel='stylesheet' />
+
+  <style>
+    body { margin:0; padding:0; }
+    .app-solicitation { padding-top: 10px; }
+    #map { position:absolute; top:0; bottom:0; width:100%; }
+  </style>
+</head>
+<body>
+
+  <div style="width: 100%;
+              height: 100%;
+              background-image: url('website/images/lane_breach_bg.jpg');
+              background-size: 100%;
+              background-position: 0 -125px">
+    <div class="container">
+      <div class="row text-left text-weight-bold text-white">
+        <div style="padding-left: 100px; padding-top: 50px;" class="col">
+          <h1 class="display-4">Let's get cars out of bike lanes.</h1>
+        </div>
+      </div>
+      <!-- TODO: Actually have a principled approach to how we define this
+        -- padding...
+        -->
+      <div style="padding-top: 39rem"
+           class="row text-right text-weight-bold text-info">
+      </div>
+    </div>
+  </div>
+
+  <div style="width: 100%" class="bg-success">
+    <div style="padding-bottom: 20px" class="container">
+      <div class="row text-center text-weight-bold text-white">
+        <div class="col">
+          <h1 class="display-4">Last week we had 62 obstructed bike lanes.</h1>
+        </div>
+      </div>
+      <div style="height: 500px" class="row">
+        <div class="col"><div id='map'></div></div>
+        <div class="col">
+          <div class="row text-center">
+            <div class="col">
+              <a class="twitter-timeline"
+                 data-width="400"
+                 data-height="300"
+                 href="https://twitter.com/bikelanes_sf?ref_src=twsrc%5Etfw"></a>
+            </div>
+          </div>
+          <div class="row text-center app-solicitation">
+            <div class="col">
+              <a class="app-icon" href=""><img src="website/images/wr-home-apple.png"></a>
+            </div>
+          </div>
+          <div class="row text-center  app-solicitation">
+            <div class="col">
+              <a class="app-icon" href=""><img src="website/images/wr-home-google.png"></a>
+            </div>
+          </div>
+          <div class="row text-center  app-solicitation">
+            <div class="col">
+              <a class="app-icon" href=""><img src="website/images/wr-home-blackberry.png"></a>
+            </div>
+          </div>
+          <div class="row text-center  app-solicitation">
+            <div class="col">
+              <a class="app-icon" href=""><img src="website/images/wr-home-Xiaomi.png"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYWdhZXNzZXIiLCJhIjoiY2puNDNlbnlrMDBjNjNrbWlvdXNibWJrOSJ9.w2Uu9bFYB2oi9cgmqlulUQ';
+      var map = new mapboxgl.Map({
+      container: 'map', // container id
+      style: 'mapbox://styles/agaesser/cjn5lb26b0gty2rnr3laj0ljd', // stylesheet location
+      center: [-122.450577, 37.759108], // starting position [lng, lat]
+      zoom: 11 // starting zoom
+      });
+  </script>
+  
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+          integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+          crossorigin="anonymous"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+          integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+          crossorigin="anonymous"></script>
+</body>
+</html>
