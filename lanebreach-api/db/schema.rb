@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_29_014619) do
+ActiveRecord::Schema.define(version: 2018_11_08_031609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,13 @@ ActiveRecord::Schema.define(version: 2018_10_29_014619) do
     t.string "category"
     t.string "token"
     t.string "request_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sf_311_cases", force: :cascade do |t|
+    t.string "status_description"
+    t.string "police_district"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
