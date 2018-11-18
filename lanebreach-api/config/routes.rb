@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  namespace :api, defaults: {format: 'json'} do
+  namespace :api, defaults: { format: 'json' } do
     resources :mobile_metadata, only: [:index, :create]
-    resources :sf_311_cases, only: [:index]
-    get '/bikeway_networks' => "bikeway_networks#nearest_network"
+
+    get '/bikeway_networks', to: 'bikeway_networks#nearest_network'
+
+    resources :sf311_cases, only: [:index, :create]
+    get '/sf311_cases/bike_lane_blockages', to:'sf311_cases#bike_lane_blockages'
   end
 end
