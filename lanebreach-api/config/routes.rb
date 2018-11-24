@@ -6,6 +6,5 @@ Rails.application.routes.draw do
     get '/bikeway_networks', to: 'bikeway_networks#nearest_network'
 
     resources :sf311_cases, only: [:index, :create]
-    get '/sf311_cases/bike_lane_blockages', to:'sf311_cases#bike_lane_blockages'
   end
 end
