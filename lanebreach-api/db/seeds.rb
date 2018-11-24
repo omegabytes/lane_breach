@@ -1,7 +1,18 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'csv'
+
+# Seed the SF 311 cases table with blocked bike lane incidents
+# from April 2018 onward:
+blocked_lane_cases_csv =
+  Sf311CaseService.get_blocked_bike_lane_case_data(
+    from_datetime: Date.new(2018, 4, 1),
+    limit: 5000,
+    format: :csv
+  )
+
+cases_to_import = []
+
+CSV.parse(blocked_lane_cases_csv, headers: true) do |row|
+  cases_to_import << Sf311Case.new(row.to_h)
+end
+
+Sf311Case.import!(cases_to_import)
