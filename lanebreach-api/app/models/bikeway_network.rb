@@ -16,7 +16,7 @@
 #  facility_t :string(254)
 #  from_st    :string(254)
 #  fy         :decimal(, )
-#  geom       :geometry(MultiLi
+#  geom       :geometry({:srid= multilinestring, 4326
 #  gid        :integer          not null, primary key
 #  globalid   :string(254)
 #  greenwave  :string(254)

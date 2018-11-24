@@ -17,7 +17,7 @@ class AddSf311CasesData < ActiveRecord::Migration[5.2]
       t.string :police_district
       t.float :lat
       t.float :long
-      t.point :point
+      t.st_point :point, geographic: true
       t.string :point_city
       t.string :source
       t.string :point_state

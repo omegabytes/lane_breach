@@ -11,7 +11,7 @@
 #  media_url                       :string
 #  media_url_description           :string
 #  neighborhoods_sffind_boundaries :string
-#  point                           :point
+#  point                           :geography({:srid point, 4326
 #  point_address                   :string
 #  point_city                      :string
 #  point_state                     :string
