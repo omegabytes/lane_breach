@@ -33,6 +33,8 @@ GEM
       activemodel (= 5.2.1)
       activesupport (= 5.2.1)
       arel (>= 9.0)
+    activerecord-import (0.27.0)
+      activerecord (>= 3.2)
     activerecord-postgis-adapter (5.2.1)
       activerecord (~> 5.1)
       rgeo-activerecord (~> 6.0)
@@ -157,6 +159,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-import
   activerecord-postgis-adapter
   annotate
   api-pagination

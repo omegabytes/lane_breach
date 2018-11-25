@@ -12,7 +12,7 @@
     "db:reset": "docker exec -it lbapi bash -c 'rails db:migrate:reset RAILS_ENV=development'",
     "db:migrate": "docker exec -it lbapi bash -c 'rails db:migrate RAILS_ENV=development'",
     "db:run": "docker run --name lbdb lbdb",
-    "db:seed": "docker exec -it lbdb bash -c 'psql bikelanes bikelanes -f /data/bikeway_networks.sql'",
+    "db:seed": "docker exec -it lbapi bash -c 'rails db:seed RAILS_ENV=development'",
     "start": "docker-compose -f docker-compose.yml up"
   },
   "repository": {

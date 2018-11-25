@@ -15,8 +15,11 @@ module Sf311CaseService
   # https://dev.socrata.com/docs/datatypes/floating_timestamp.html
   SODA_FLOATING_TIMESTAMP_FORMAT ='%Y-%m-%dT%T'
 
-  def get_blocked_bike_lane_cases
-    get_cases(Sf311Case::SERVICE_SUBTYPES[:blocked_bike_lane])
+  def get_blocked_bike_lane_case_data(options = {})
+    get_cases(
+      Sf311Case::SERVICE_SUBTYPES[:blocked_bike_lane],
+      options
+    )
   end
 
   def create_case(case_attributes)
@@ -34,7 +37,7 @@ module Sf311CaseService
     @client ||= SODA::Client.new(SODA_CREDENTIALS)
   end
 
-  def get_cases(subtype, from_datetime: nil, to_datetime: nil, offset: 0, limit: 10)
+  def get_cases(subtype, from_datetime: nil, to_datetime: nil, offset: 0, limit: 10, format: :json)
     request_params = {
       service_subtype: subtype,
       '$offset': offset,
@@ -55,6 +58,10 @@ module Sf311CaseService
 
     request_params['$where'] = query_conditions.join(' and ') if query_conditions
 
-    client.get(CASE_DATASET_ID, request_params)
+    client.get(
+      "https://data.sfgov.org/resource/#{CASE_DATASET_ID}.#{format}",
+      request_params
+    )
   end
+
 end
