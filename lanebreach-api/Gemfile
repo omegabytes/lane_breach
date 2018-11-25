@@ -21,6 +21,8 @@ gem 'soda-ruby', :require => 'soda'
 gem 'will_paginate'
 gem 'api-pagination'
 
+gem 'activerecord-import'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
