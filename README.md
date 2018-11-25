@@ -25,7 +25,7 @@ user-facing applications:
 - A [Twitter bot](https://twitter.com/bikelanes_sf) that posts interesting interpretations from our database and provides
   a space to promote and discuss commuter saftey for cyclists. 
   
-Both of these applications will be tied together by a back-end service that
+These applications will be tied together by a back-end service that
 pulls data from various sources and combines them into a single PostgreSQL
 database hosted on AWS.
 
