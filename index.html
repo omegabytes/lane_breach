@@ -21,6 +21,30 @@
     body { margin:0; padding:0; }
     .app-solicitation { padding-top: 10px; }
     #map { position:absolute; top:0; bottom:0; width:100%; }
+
+    .legend {
+      background-color: #fff;
+      border-radius: 3px;
+      bottom: 30px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+      font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+      padding: 10px;
+      position: absolute;
+      right: 10px;
+      z-index: 1;
+    }
+
+    .legend h4 {
+      margin: 0 0 10px;
+    }
+
+    .legend div span {
+      border-radius: 50%;
+      display: inline-block;
+      height: 10px;
+      margin-right: 5px;
+      width: 10px;
+    }
   </style>
 </head>
 <body>
@@ -49,11 +73,17 @@
     <div style="padding-bottom: 20px" class="container">
       <div class="row text-center text-weight-bold text-white">
         <div class="col">
-          <h1 class="display-4">Last week we had 62 obstructed bike lanes.</h1>
+          <h1 class="display-4" id="counter"></h1>
         </div>
       </div>
       <div style="height: 500px" class="row">
-        <div class="col"><div id='map'></div></div>
+        <div class="col"><div id='map'></div>
+          <div id="blocked-lane-legend" class='legend'>
+            <!--<h4></h4>-->
+            <div><span style='background-color: #fe0606'></span>injury/death</div>
+            <div><span style='background-color: #429d01'></span>bike lane</div>
+            <div><span style='background-color: #ffe11f'></span>blocked lane</div>
+          </div></div>
         <div class="col">
           <div class="row text-center">
             <div class="col">
@@ -89,6 +119,10 @@
   </div>
 
   <script>
+      var legend = document.getElementById('blocked-lane-legend');
+      legend.style.display = 'block';
+
+
     mapboxgl.accessToken = 'pk.eyJ1IjoiYWdhZXNzZXIiLCJhIjoiY2pvZGY5bmh4MWJtcTNsbWtmN2RmNnhiNCJ9.iwOotv1u0S92o-Vj2CCjag';
       var map = new mapboxgl.Map({
       container: 'map', // container id
@@ -96,6 +130,54 @@
       center: [-122.450577, 37.759108], // starting position [lng, lat]
       zoom: 11 // starting zoom
       });
+
+    map.on('load', function() {
+
+        document.getElementById("counter").innerHTML = `${map.queryRenderedFeatures({layers: ['bike-lane-reports-point']}).length} obstructed bike lanes since April 2018.`;
+
+        map.on('click', 'bike-lane-reports-point', function(e) {
+            let popupHTML = ``;
+
+            if (e.features[0].properties.id) {
+                popupHTML += `<b>ID:</b>                  ${e.features[0].properties.id}<br>`
+            }
+
+            if (e.features[0].properties.time) {
+                popupHTML += `<b>Time:</b>                ${e.features[0].properties.time}<br>`
+            }
+
+            if (e.features[0].properties.supervisor_district) {
+                popupHTML += `<b>Supervisor District:</b> ${e.features[0].properties.supervisor_district}<br>`
+            }
+
+            if (e.features[0].properties.neighborhood) {
+                popupHTML += `<b>Neighborhood:</b>        ${e.features[0].properties.neighborhood}<br>`
+            }
+
+            if (e.features[0].properties.details) {
+                popupHTML += `<b>Details:</b>             ${e.features[0].properties.details}<br>`
+            }
+
+            if (e.features[0].properties.media) {
+                popupHTML += `<b>Media:</b><br>           <img src="${e.features[0].properties.media}" style="width:256px;height:256px;"><br>`
+            }
+
+            new mapboxgl.Popup()
+                .setLngLat(e.features[0].geometry.coordinates)
+                .setHTML(popupHTML)
+                .addTo(map);
+        });
+
+        map.on('mouseenter', 'bike-lane-reports-point', function () {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        map.on('mouseleave', 'bike-lane-reports-point', function () {
+            map.getCanvas().style.cursor = '';
+        });
+    });
+
+    // text handlers
   </script>
   
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
