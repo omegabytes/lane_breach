@@ -11,9 +11,8 @@ module Sf311CaseService
   }
 
   CASE_DATASET_ID = 'ktji-gk7t'
-
   # https://dev.socrata.com/docs/datatypes/floating_timestamp.html
-  SODA_FLOATING_TIMESTAMP_FORMAT ='%Y-%m-%dT%T'
+  SODA_FLOATING_TIMESTAMP_FORMAT = '%Y-%m-%dT%T'
 
   def get_blocked_bike_lane_case_data(options = {})
     get_cases(
@@ -63,5 +62,4 @@ module Sf311CaseService
       request_params
     )
   end
-
 end

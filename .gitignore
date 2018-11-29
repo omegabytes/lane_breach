@@ -74,3 +74,4 @@ request.js
 Keys.swift
 iOS/Pods/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM/Contents/Info.plist
 iOS/Pods/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM/Contents/Resources/DWARF/Mapbox
+.DS_Store

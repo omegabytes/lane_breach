@@ -1,4 +1,5 @@
 require 'csv'
+connection = ActiveRecord::Base.connection()
 
 # Seed the SF 311 cases table with blocked bike lane incidents
 # from April 2018 onward:
@@ -16,3 +17,5 @@ CSV.parse(blocked_lane_cases_csv, headers: true) do |row|
 end
 
 Sf311Case.import!(cases_to_import)
+
+connection.execute(IO.read(Rails.root.join('db', 'sql-files', 'bikeway_networks.sql')))

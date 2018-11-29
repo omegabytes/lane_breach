@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_08_031609) do
+ActiveRecord::Schema.define(version: 2018_11_29_050545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,13 +57,12 @@ ActiveRecord::Schema.define(version: 2018_11_08_031609) do
     t.geometry "geom", limit: {:srid=>4326, :type=>"multi_line_string"}
   end
 
-  create_table "mobile_metadata", force: :cascade do |t|
-    t.string "environment"
-    t.string "category"
-    t.string "token"
-    t.string "request_id"
+  create_table "sf311_case_metadata", force: :cascade do |t|
+    t.bigint "sf311_case_id"
+    t.string "bike_lane_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["sf311_case_id"], name: "index_sf311_case_metadata_on_sf311_case_id"
   end
 
   create_table "sf311_cases", force: :cascade do |t|
@@ -95,4 +94,5 @@ ActiveRecord::Schema.define(version: 2018_11_08_031609) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "sf311_case_metadata", "sf311_cases"
 end
