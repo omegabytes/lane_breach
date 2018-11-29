@@ -32,9 +32,17 @@
 #
 
 class Sf311Case < ApplicationRecord
+  has_one :sf311_case_metadatum
+
+  after_commit :add_metadata
+
   SERVICE_SUBTYPES = {
     blocked_bike_lane: 'Blocking_Bicycle_Lane'
   }
 
   scope :bike_lane_blockage, -> { where(service_subtype: SERVICE_SUBTYPES[:blocked_bike_lane]) }
+
+  def add_metadata
+    Sf311CaseMetadatum.create_metadata(self)
+  end
 end
