@@ -30,6 +30,11 @@
 #  updated_at                      :datetime         not null
 #  service_request_id              :integer
 #
+# Indexes
+#
+#  index_sf311_cases_on_requested_datetime  (requested_datetime)
+#  index_sf311_cases_on_service_request_id  (service_request_id) UNIQUE
+#
 
 class Sf311Case < ApplicationRecord
   has_one :sf311_case_metadatum
