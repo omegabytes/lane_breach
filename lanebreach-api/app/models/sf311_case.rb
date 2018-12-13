@@ -34,9 +34,9 @@
 class Sf311Case < ApplicationRecord
   has_one :sf311_case_metadatum
 
-  after_commit :add_metadata
   validates :service_request_id, uniqueness: true
 
+  after_create :add_metadata
 
   SERVICE_SUBTYPES = {
     blocked_bike_lane: 'Blocking_Bicycle_Lane'
