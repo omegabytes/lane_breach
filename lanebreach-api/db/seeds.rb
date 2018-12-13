@@ -12,8 +12,4 @@ blocked_lane_cases_csv =
     format: :csv
   )
 
-cases_to_import = []
-
-CSV.parse(blocked_lane_cases_csv, headers: true) do |row|
-  Sf311Case.create!(row.to_h)
-end
+Sf311Case.ingest_csv_case_data!(blocked_lane_cases_csv)

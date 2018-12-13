@@ -47,4 +47,18 @@ class Sf311Case < ApplicationRecord
   def add_metadata
     Sf311CaseMetadatum.create_metadata(self)
   end
+
+  class << self
+
+    def ingest_csv_case_data!(case_data_csv)
+      # TODO: Figure out a more efficient way to import case records. Currently,
+      # each record takes 2 SQL statements to create (1 for the record itself,
+      # one for the case metadata record)
+      CSV.parse(case_data_csv, headers: true) do |row|
+        Sf311Case.create!(row.to_h)
+      end
+    end
+
+  end
+
 end
