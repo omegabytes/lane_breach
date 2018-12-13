@@ -1,7 +1,7 @@
 require 'csv'
-connection = ActiveRecord::Base.connection()
 
-connection.execute(IO.read(Rails.root.join('db', 'sql-files', 'bikeway_networks.sql')))
+# Seed the bikeway networks table:
+ActiveRecord::Base.connection.execute(IO.read(Rails.root.join('db', 'sql-files', 'bikeway_networks.sql')))
 
 # Seed the SF 311 cases table with blocked bike lane incidents
 # from April 2018 onward:
