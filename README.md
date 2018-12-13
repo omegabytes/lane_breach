@@ -19,11 +19,13 @@ incidents on our streets each year.
 Rome wasn't built in a day. To get started, we will be focusing on two main
 user-facing applications:
 
-- A web-app to display correlated data information
+- A [web-app](http://www.lanebreach.org) to display correlated data information
 - An iPhone app to streamline reporting of bike lane obstructions to SF's 311
   database.
+- A [Twitter bot](https://twitter.com/bikelanes_sf) that posts interesting interpretations from our database and provides
+  a space to promote and discuss commuter saftey for cyclists. 
   
-Both of these applications will be tied together by a back-end service that
+These applications will be tied together by a back-end service that
 pulls data from various sources and combines them into a single PostgreSQL
 database hosted on AWS.
 

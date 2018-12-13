@@ -1,5 +1,5 @@
 default: &default
-  adapter: postgresql
+  adapter: postgis
   encoding: unicode
   username: postgres
   password:
@@ -15,7 +15,7 @@ development:
   password: bike_pass
 
 production:
-  adapter: postgresql
+  adapter: postgis
   encoding: unicode
   database: <%= ENV['RDS_DB_NAME'] %>
   username: <%= ENV['RDS_USERNAME'] %>

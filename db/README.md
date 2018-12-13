@@ -9,7 +9,6 @@
 In the base project directory, the following commands can be run to get the bike data loaded:
 ```
 yarn build:db
-yarn db:seed
 yarn db:run
 ```
 
