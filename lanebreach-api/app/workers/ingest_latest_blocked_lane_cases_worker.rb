@@ -21,6 +21,6 @@ class IngestLatestBlockedLaneCasesWorker
 
     # 3. Ingest the records retrieved in step 2 (may want to use and/or
     #    move the code used to do this in db/seeds.rb)
-    Sf311Case.ingest_csv_case_data(blocked_lane_cases_csv)
+    Sf311Case.ingest_csv_case_data!(blocked_lane_cases_csv)
   end
 end
