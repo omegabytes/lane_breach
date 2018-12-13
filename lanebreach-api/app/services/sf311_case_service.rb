@@ -11,10 +11,14 @@ module Sf311CaseService
   }
 
   CASE_DATASET_ID = 'ktji-gk7t'
+
   # https://dev.socrata.com/docs/datatypes/floating_timestamp.html
   SODA_FLOATING_TIMESTAMP_FORMAT = '%Y-%m-%dT%T'
 
   def get_blocked_bike_lane_case_data(options = {})
+    # TODO: Add a comment explaining why this limit was chosen
+    options[:limit] ||= 5000
+
     get_cases(
       Sf311Case::SERVICE_SUBTYPES[:blocked_bike_lane],
       options
@@ -57,9 +61,7 @@ module Sf311CaseService
 
     request_params['$where'] = query_conditions.join(' and ') if query_conditions
 
-    client.get(
-      "https://data.sfgov.org/resource/#{CASE_DATASET_ID}.#{format}",
-      request_params
-    )
+    client.get("#{CASE_DATASET_ID}.#{format}", request_params)
   end
+
 end
