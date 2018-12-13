@@ -10,7 +10,7 @@ class IngestLatestBlockedLaneCasesWorker
     #    and the current date
     blocked_lane_cases_csv =
       Sf311CaseService.get_blocked_bike_lane_case_data(
-        from_datetime: most_recent_case_timestamp + 1.minute
+        from_datetime: most_recent_case_timestamp + 1.minute,
 
         # TODO: Figure out record limit keeping in mind that seeds.rb currently
         # adds the first 50 records since April 2018
