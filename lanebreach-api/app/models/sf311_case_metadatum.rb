@@ -22,8 +22,9 @@ class Sf311CaseMetadatum < ApplicationRecord
 
   def self.create_metadata(sf311_case)
     bikeway_network = BikewayNetwork.nearest(sf311_case.lat, sf311_case.long)
+
     if bikeway_network.present?
       Sf311CaseMetadatum.create!(:bike_lane_type => bikeway_network.symbology, :sf311_case => sf311_case)
-    end    
+    end
   end
 end

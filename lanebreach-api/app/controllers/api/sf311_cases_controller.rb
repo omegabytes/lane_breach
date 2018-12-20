@@ -1,6 +1,6 @@
 class Api::Sf311CasesController < ApplicationController
   def index
-    lane_blockages_query = Sf311Case.bike_lane_blockage
+    lane_blockages_query = Sf311Case.bike_lane_blockage.includes(:sf311_case_metadatum)
 
     if params[:start_time]
       lane_blockages_query =
@@ -12,7 +12,9 @@ class Api::Sf311CasesController < ApplicationController
         lane_blockages_query.where('requested_datetime <= ?', params[:end_time])
     end
 
-    paginate json: lane_blockages_query
+    paginated_query = paginate(lane_blockages_query)
+
+    render json: Sf311CaseSerializer.new(paginated_query, include: [:sf311_case_metadatum])
   end
 
   def create
@@ -35,6 +37,6 @@ class Api::Sf311CasesController < ApplicationController
     # TODO: Be more explicit about which attributes are supported
     params.
       fetch(:sf311_case, {}).
-      permit(Sf311Case.attribute_names - [:id, :created_at, :updated_at])
+      permit(Sf311Case.attribute_names - %w[id created_at updated_at])
   end
 end
