@@ -48,7 +48,7 @@ curl -XGET https://lane-breach.herokuapp.com/api/bikeway_networks?lat=37.7467553
 
 **response:**
 ```
-{"gid":648,"install_yr":"2010.0","streetname":"LAGUNA HONDA BLVD","symbology":"BIKE LANE","dist":0.00506722}
+{"id":648,"install_yr":"2010.0","streetname":"LAGUNA HONDA BLVD","symbology":"BIKE LANE","dist":0.00506722}
 ```
 
 **request:**

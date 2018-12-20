@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2018_12_12_224143) do
   enable_extension "plpgsql"
   enable_extension "postgis"
 
-  create_table "bikeway_networks", primary_key: "gid", id: :serial, force: :cascade do |t|
+  create_table "bikeway_networks", id: :integer, default: -> { "nextval('bikeway_networks_gid_seq'::regclass)" }, force: :cascade do |t|
     t.string "barrier", limit: 254
     t.string "biap", limit: 254
     t.string "buffered", limit: 254
@@ -59,9 +59,10 @@ ActiveRecord::Schema.define(version: 2018_12_12_224143) do
 
   create_table "sf311_case_metadata", force: :cascade do |t|
     t.bigint "sf311_case_id"
-    t.string "bike_lane_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "bikeway_network_id"
+    t.index ["bikeway_network_id"], name: "index_sf311_case_metadata_on_bikeway_network_id"
     t.index ["sf311_case_id"], name: "index_sf311_case_metadata_on_sf311_case_id"
   end
 
@@ -96,5 +97,6 @@ ActiveRecord::Schema.define(version: 2018_12_12_224143) do
     t.index ["service_request_id"], name: "index_sf311_cases_on_service_request_id", unique: true
   end
 
+  add_foreign_key "sf311_case_metadata", "bikeway_networks"
   add_foreign_key "sf311_case_metadata", "sf311_cases"
 end

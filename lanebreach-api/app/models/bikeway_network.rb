@@ -2,6 +2,7 @@
 #
 # Table name: bikeway_networks
 #
+#  id         :integer          not null, primary key
 #  barrier    :string(254)
 #  biap       :string(254)
 #  buffered   :string(254)
@@ -17,7 +18,6 @@
 #  from_st    :string(254)
 #  fy         :decimal(, )
 #  geom       :geometry({:srid= multilinestring, 4326
-#  gid        :integer          not null, primary key
 #  globalid   :string(254)
 #  greenwave  :string(254)
 #  install_mo :decimal(, )
@@ -44,10 +44,12 @@
 #
 
 class BikewayNetwork < ApplicationRecord
-  def self.nearest(lat, long)
-    meters = 3
+  has_one :sf311_case_metadatum
 
-    BikewayNetwork.select("gid, install_yr, symbology, streetname, st_DistanceSphere(geom, ST_MakePoint(#{long}, #{lat})) as dist")
+  def self.nearest(lat, long)
+    meters = 50
+
+    BikewayNetwork.select("id, install_yr, symbology, streetname, st_DistanceSphere(geom, ST_MakePoint(#{long}, #{lat})) as dist")
     .where("st_DistanceSphere(geom, ST_MakePoint(?, ?)) <= #{meters}", long, lat)
     .order('dist')
     .limit(1)

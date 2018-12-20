@@ -50,7 +50,7 @@ class Sf311Case < ApplicationRecord
   scope :bike_lane_blockage, -> { where(service_subtype: SERVICE_SUBTYPES[:blocked_bike_lane]) }
 
   def add_metadata
-    Sf311CaseMetadatum.create_metadata(self)
+    Sf311CaseMetadatum.update_metadata(self)
   end
 
   class << self
