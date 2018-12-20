@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   lbdb:
     container_name: lbdb
@@ -7,14 +8,16 @@ services:
       dockerfile: Dockerfile
     ports:
       - '5432:5432'
-  lbapi:
+
+  lbapi: &lbapi
     container_name: lbapi
     build:
       context: ./lanebreach-api
-      dockerfile: Dockerfile    
+      dockerfile: Dockerfile
     image: lanebreach_api
     environment:
       RAILS_DATABASE_HOST: lbdb
+      REDIS_URL: redis://redis:6379
     volumes:
       - ./lanebreach-api:/lanebreach-api
     ports:
@@ -22,3 +25,16 @@ services:
     depends_on:
       - lbdb
     command: bundle exec puma
+
+  worker:
+    <<: *lbapi
+    container_name: worker
+    image: lanebreach_worker
+    ports: []
+    depends_on:
+      - redis
+    command: bundle exec sidekiq
+
+  redis:
+    image: redis:5.0-alpine
+    container_name: redis

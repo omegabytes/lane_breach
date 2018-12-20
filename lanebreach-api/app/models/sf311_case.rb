@@ -30,11 +30,18 @@
 #  updated_at                      :datetime         not null
 #  service_request_id              :integer
 #
+# Indexes
+#
+#  index_sf311_cases_on_requested_datetime  (requested_datetime)
+#  index_sf311_cases_on_service_request_id  (service_request_id) UNIQUE
+#
 
 class Sf311Case < ApplicationRecord
   has_one :sf311_case_metadatum
 
-  after_commit :add_metadata
+  validates :service_request_id, uniqueness: true
+
+  after_create :add_metadata
 
   SERVICE_SUBTYPES = {
     blocked_bike_lane: 'Blocking_Bicycle_Lane'
@@ -45,4 +52,18 @@ class Sf311Case < ApplicationRecord
   def add_metadata
     Sf311CaseMetadatum.create_metadata(self)
   end
+
+  class << self
+
+    def ingest_csv_case_data!(case_data_csv)
+      # TODO: Figure out a more efficient way to import case records. Currently,
+      # each record takes 2 SQL statements to create (1 for the record itself,
+      # one for the case metadata record)
+      CSV.parse(case_data_csv, headers: true) do |row|
+        Sf311Case.create!(row.to_h)
+      end
+    end
+
+  end
+
 end
