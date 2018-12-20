@@ -44,15 +44,15 @@
 #
 
 class BikewayNetwork < ApplicationRecord
-  has_one :sf311_case_metadatum
+  has_many :sf311_case_metadatum
 
   def self.nearest(lat, long)
     meters = 50
 
     BikewayNetwork.select("id, install_yr, symbology, streetname, st_DistanceSphere(geom, ST_MakePoint(#{long}, #{lat})) as dist")
-    .where("st_DistanceSphere(geom, ST_MakePoint(?, ?)) <= #{meters}", long, lat)
-    .order('dist')
-    .limit(1)
-    .first
+                  .where("st_DistanceSphere(geom, ST_MakePoint(?, ?)) <= #{meters}", long, lat)
+                  .order('dist')
+                  .limit(1)
+                  .first
   end
 end
