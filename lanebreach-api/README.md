@@ -2,8 +2,14 @@
 
 The app lives on Heroku at https://lane-breach.herokuapp.com/ which you must be logged into to deploy. Make sure to add the heroku remote using ```heroku git:remote -a lane-breach```.
 
-* You can push a new version of the app using ```git subtree push --prefix lanebreach-api heroku master```.
-* You can run migrations using ```heroku run rake db:migrate```.
+* You can push a new version of the app by running the following commands:
+
+```
+heroku container:push --recursive
+heroku container:release web worker
+```
+
+* You can run migrations using ```heroku run rails db:migrate```.
 
 ## Development
 
@@ -15,7 +21,7 @@ Run `yarn start` to run the Rails server locally. Be sure you have the Docker ag
 
 #### GET /api/mobile_metadata
 
-**request:** 
+**request:**
 ```
 curl -XGET https://lane-breach.herokuapp.com/api/mobile_metadata
 ```
