@@ -39,7 +39,7 @@
 require 'csv'
 
 class Sf311Case < ApplicationRecord
-  has_one :sf311_case_metadatum
+  has_one :sf311_case_metadatum, dependent: :destroy
 
   validates :service_request_id, uniqueness: true
 
