@@ -36,8 +36,10 @@
 #  index_sf311_cases_on_service_request_id  (service_request_id) UNIQUE
 #
 
+require 'csv'
+
 class Sf311Case < ApplicationRecord
-  has_one :sf311_case_metadatum
+  has_one :sf311_case_metadatum, dependent: :destroy
 
   validates :service_request_id, uniqueness: true
 
