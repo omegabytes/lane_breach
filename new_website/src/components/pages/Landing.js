@@ -6,9 +6,17 @@ const Padding = styled.div`
   padding: 20px;
 `;
 
+const Title = styled.h1`
+  position: absolute;
+  top: 25px;
+  left: 40px;
+  z-index: 1;
+  color: wheat;
+`;
+
 const Landing = () => (
   <Padding>
-    <h1>Let's get cars out of bike lanes.</h1>
+    <Title>Let's get cars out of bike lanes.</Title>
     <Map />
   </Padding>
 );
